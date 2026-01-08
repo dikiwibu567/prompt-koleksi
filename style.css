@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+html, body {
+    background: #ffffff;
+    min-height: 100vh;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+}
+
+/* HEADER */
+.header h1 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #000000;
+    text-align: center;
+}
+
+/* INFO SECTION - DIPISAH */
+.info-section {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.warning-box {
+    flex: 1;
+    min-width: 280px;
+    background: #000000;
+    color: #ffffff;
+    padding: 16px;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: 4px solid #ffffff;
+}
+
+.add-prompt-box {
+    flex: 1;
+    min-width: 280px;
+    background: #ffffff;
+    color: #000000;
+    padding: 32px 20px;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: 700;
+    border: 4px solid #000000;
+    box-shadow: 8px 8px 0px #000000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-prompt-box:hover {
+    transform: translate(-6px, -6px);
+    box-shadow: 16px 16px 0px #000000;
+}
+
+.wa-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+}
+
+.admin-text {
+    font-size: 1.4rem;
+    font-weight: 900;
+}
+
+/* VIP CARD */
+.vip-card {
+    background: #ffffff;
+    border: 6px solid #000000;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 12px 12px 0px #000000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vip-card:hover {
+    transform: translate(-8px, -8px);
+    box-shadow: 24px 24px 0px #000000;
+}
+
+.vip-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.vip-desc {
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.vip-features {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.vip-features li {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-left: 28px;
+    position: relative;
+}
+
+.vip-features li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.vip-btn {
+    background: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 1.6rem;
+    font-weight: 900;
+    box-shadow: 6px 6px 0px #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+
+.vip-btn:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0px #ffffff;
+}
+
+/* SEARCH DIPINDAH KE ATAS PROMPT GRATIS */
+.search-wrapper {
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 18px 14px 48px;
+    font-size: 1rem;
+    border: 4px solid #000000;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    pointer-events: none;
+}
+
+/* FREE PROMPT SECTION */
+.free-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.free-title-box {
+    background: #000000;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 900;
+    margin-bottom: 12px;
+    border: 4px solid #ffffff;
+}
+
+.free-note {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #000000;
+}
+
+.free-grid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 8px 0 16px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.free-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.free-grid::-webkit-scrollbar-thumb {
+    background: #000000;
+    border-radius: 8px;
+}
+
+/* FREE CARD */
+.free-card {
+    flex: 0 0 240px;
+    background: #ffffff;
+    border: 5px solid #000000;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 10px 10px 0px #000000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.free-card:hover {
+    transform: translate(-6px, -6px);
+    box-shadow: 18px 18px 0px #000000;
+}
+
+.free-card-title {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.free-card-tag {
+    font-size: 0.85rem;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.free-features {
+    list-style: none;
+    margin-bottom: auto;
+}
+
+.free-features li {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding-left: 24px;
+    position: relative;
+}
+
+.free-features li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+.free-btn {
+    background: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    margin-top: 16px;
+    box-shadow: 5px 5px 0px #ffffff;
+    cursor: pointer;
+}
+
+.free-btn:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 9px 9px 0px #ffffff;
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #000000;
+    border-top: 3px solid #000000;
+    margin-top: auto;
+}
+
+/* CR */
+.cr {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.9);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+#copyNotification {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: #000;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    display: none;
+    border: 3px solid #fff;
+    z-index: 999;
+}
+
+.hidden {
+    display: none !important;
+}
