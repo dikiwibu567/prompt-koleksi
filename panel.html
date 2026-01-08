@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Tambah Prompt Baru</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Utama (sama dengan index.html) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+
+        html, body {
+            background: #ffffff;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            gap: 16px;
+        }
+
+        /* HEADER */
+        .header h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #000000;
+            text-align: center;
+        }
+
+        /* INFO SECTION - DIPISAH */
+        .info-section {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .warning-box {
+            flex: 1;
+            min-width: 280px;
+            background: #000000;
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 14px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 4px solid #ffffff;
+        }
+
+        .add-prompt-box {
+            flex: 1;
+            min-width: 280px;
+            background: #ffffff;
+            color: #000000;
+            padding: 32px 20px;
+            border-radius: 14px;
+            text-align: center;
+            font-weight: 700;
+            border: 4px solid #000000;
+            box-shadow: 8px 8px 0px #000000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-prompt-box:hover {
+            transform: translate(-6px, -6px);
+            box-shadow: 16px 16px 0px #000000;
+        }
+
+        .wa-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 16px;
+        }
+
+        .admin-text {
+            font-size: 1.4rem;
+            font-weight: 900;
+        }
+
+        /* VIP CARD */
+        .vip-card {
+            background: #ffffff;
+            border: 6px solid #000000;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 12px 12px 0px #000000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .vip-card:hover {
+            transform: translate(-8px, -8px);
+            box-shadow: 24px 24px 0px #000000;
+        }
+
+        .vip-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .vip-desc {
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .vip-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .vip-features li {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .vip-features li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            font-weight: 900;
+        }
+
+        .vip-btn {
+            background: #000000;
+            color: #ffffff;
+            text-align: center;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            box-shadow: 6px 6px 0px #ffffff;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .vip-btn:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 10px 10px 0px #ffffff;
+        }
+
+        /* SEARCH DIPINDAH KE ATAS PROMPT GRATIS */
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 18px 14px 48px;
+            font-size: 1rem;
+            border: 4px solid #000000;
+            border-radius: 14px;
+            background: #ffffff;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+            pointer-events: none;
+        }
+
+        /* FREE PROMPT SECTION */
+        .free-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .free-title-box {
+            background: #000000;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            border: 4px solid #ffffff;
+        }
+
+        .free-note {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #000000;
+        }
+
+        .free-grid {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            gap: 16px;
+            padding: 8px 0 16px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .free-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .free-grid::-webkit-scrollbar-thumb {
+            background: #000000;
+            border-radius: 8px;
+        }
+
+        /* FREE CARD */
+        .free-card {
+            flex: 0 0 240px;
+            background: #ffffff;
+            border: 5px solid #000000;
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 10px 10px 0px #000000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .free-card:hover {
+            transform: translate(-6px, -6px);
+            box-shadow: 18px 18px 0px #000000;
+        }
+
+        .free-card-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #000000;
+            text-align: center;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .free-card-tag {
+            font-size: 0.85rem;
+            color: #000000;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .free-features {
+            list-style: none;
+            margin-bottom: auto;
+        }
+
+        .free-features li {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .free-features li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            font-size: 1rem;
+            font-weight: 900;
+        }
+
+        .free-btn {
+            background: #000000;
+            color: #ffffff;
+            text-align: center;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-top: 16px;
+            box-shadow: 5px 5px 0px #ffffff;
+            cursor: pointer;
+        }
+
+        .free-btn:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 9px 9px 0px #ffffff;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #000000;
+            border-top: 3px solid #000000;
+            margin-top: auto;
+        }
+
+        /* CR */
+        .cr {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.9);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        #copyNotification {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            background: #000;
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            display: none;
+            border: 3px solid #fff;
+            z-index: 999;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* CSS KHUSUS PANEL ADMIN */
+        .panel-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .panel-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .panel-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 10px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 6px 6px 0px #666;
+        }
+        
+        .form-section {
+            background: #fff;
+            border: 4px solid #000;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 8px 8px 0px #000;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid #000;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 900;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px #666;
+        }
+        
+        .prompt-preview {
+            background: #fff;
+            border: 4px solid #000;
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 8px 8px 0px #000;
+        }
+        
+        .preview-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .preview-card {
+            background: #f5f5f5;
+            border: 3px solid #000;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .instruction-box {
+            background: #000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .instruction-box h3 {
+            margin-bottom: 10px;
+        }
+        
+        .instruction-box ul {
+            padding-left: 20px;
+        }
+        
+        .instruction-box li {
+            margin-bottom: 5px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #000;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+            display: none;
+            z-index: 1000;
+            border: 3px solid #fff;
+        }
+        
+        /* Tampilkan semua prompt yang sudah ditambahkan */
+        .saved-prompts-section {
+            margin-top: 40px;
+        }
+        
+        .saved-prompts-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .delete-btn {
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        .clear-all-btn {
+            background: #ff4444;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification">✅ Prompt berhasil disimpan!</div>
+    
+    <div class="panel-container">
+        <div class="panel-header">
+            <h1>📋 PANEL ADMIN TAMBAH PROMPT</h1>
+            <p>Tambahkan prompt baru ke koleksi prompt gratis</p>
+            <a href="index.html" class="back-btn">← Kembali ke Halaman Utama</a>
+        </div>
+        
+        <div class="form-section">
+            <h2 style="font-size: 1.8rem; margin-bottom: 20px; text-align: center;">Form Tambah Prompt Baru</h2>
+            
+            <form id="promptForm">
+                <div class="form-group">
+                    <label class="form-label">Judul Prompt:</label>
+                    <input type="text" class="form-input" id="promptTitle" placeholder="Contoh: VOLOX - AI" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Owner/Pembuat:</label>
+                    <input type="text" class="form-input" id="promptOwner" placeholder="Contoh: Diki" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Support AI:</label>
+                    <input type="text" class="form-input" id="promptSupport" placeholder="Contoh: Deepseek, Gemini, Grok" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Isi Prompt (Kode/Text):</label>
+                    <textarea class="form-textarea" id="promptContent" placeholder="Masukkan kode prompt di sini..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">➕ SIMPAN PROMPT BARU</button>
+            </form>
+        </div>
+        
+        <div class="prompt-preview">
+            <h3 class="preview-title">Preview Prompt</h3>
+            <div id="previewContainer">
+                <div class="preview-card">
+                    <p>Isi form di atas untuk melihat preview prompt di sini...</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="saved-prompts-section">
+            <h3 style="font-size: 1.5rem; margin-bottom: 20px; text-align: center;">📂 Prompt yang Sudah Ditambahkan</h3>
+            <div id="savedPromptsContainer">
+                <!-- Prompt yang sudah disimpan akan muncul di sini -->
+            </div>
+            <button id="clearAllBtn" class="clear-all-btn">🗑️ Hapus Semua Prompt</button>
+        </div>
+        
+        <div class="instruction-box">
+            <h3>📌 Petunjuk Penggunaan Panel Admin:</h3>
+            <ul>
+                <li>Isi semua field dengan lengkap</li>
+                <li>Untuk Support AI, pisahkan dengan koma jika mendukung multiple AI</li>
+                <li>Pastikan kode prompt sudah benar sebelum disimpan</li>
+                <li>Prompt akan disimpan di localStorage browser Anda</li>
+                <li>Prompt yang ditambahkan akan langsung muncul di halaman utama (index.html)</li>
+                <li>Untuk menghapus prompt, klik tombol merah pada prompt yang ingin dihapus</li>
+                <li>Hubungi admin (Diki) jika ingin prompt ditambahkan permanen ke website</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // ==================== FUNGSI UTAMA ====================
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Fungsi untuk update preview
+        function updatePreview() {
+            const title = document.getElementById('promptTitle').value || 'Judul Prompt';
+            const owner = document.getElementById('promptOwner').value || 'Owner';
+            const support = document.getElementById('promptSupport').value || 'AI Support';
+            const content = document.getElementById('promptContent').value || 'Isi prompt akan muncul di sini...';
+            
+            // Escape konten untuk atribut data-prompt
+            const escapedContent = content
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+            
+            const previewHTML = `
+                <div class="free-card" data-prompt="${escapedContent}">
+                    <div class="free-card-title">${title}</div>
+                    <div class="free-card-tag">owner: ${owner}</div>
+                    <ul class="free-features">
+                        <li>${support}</li>
+                    </ul>
+                    <div class="free-btn copy-btn">📋 Salin</div>
+                </div>
+            `;
+            
+            document.getElementById('previewContainer').innerHTML = previewHTML;
+            
+            // Tambahkan event listener untuk tombol salin di preview
+            const copyBtn = document.querySelector('#previewContainer .copy-btn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(content).then(() => {
+                        showNotification('✅ Prompt berhasil disalin dari preview!');
+                    });
+                });
+            }
+        }
+
+        // Fungsi untuk menyimpan prompt ke localStorage
+        function savePromptToLocalStorage(promptData) {
+            try {
+                // Ambil prompt yang sudah ada dari localStorage
+                let savedPrompts = localStorage.getItem('userPrompts');
+                let promptsArray = [];
+                
+                if (savedPrompts) {
+                    promptsArray = JSON.parse(savedPrompts);
+                }
+                
+                // Tambahkan prompt baru
+                promptsArray.push(promptData);
+                
+                // Simpan kembali ke localStorage
+                localStorage.setItem('userPrompts', JSON.stringify(promptsArray));
+                
+                return true;
+            } catch (error) {
+                console.error('Error saving to localStorage:', error);
+                return false;
+            }
+        }
+
+        // Fungsi untuk memuat semua prompt dari localStorage
+        function loadAllSavedPrompts() {
+            try {
+                const savedPrompts = localStorage.getItem('userPrompts');
+                const container = document.getElementById('savedPromptsContainer');
+                
+                if (!savedPrompts || !container) {
+                    container.innerHTML = '<p class="preview-card">Belum ada prompt yang disimpan.</p>';
+                    return;
+                }
+                
+                const promptsArray = JSON.parse(savedPrompts);
+                
+                if (promptsArray.length === 0) {
+                    container.innerHTML = '<p class="preview-card">Belum ada prompt yang disimpan.</p>';
+                    return;
+                }
+                
+                // Buat grid untuk menampilkan semua prompt
+                let promptsHTML = '<div class="saved-prompts-list">';
+                
+                promptsArray.forEach((prompt, index) => {
+                    // Escape konten untuk atribut data-prompt
+                    const escapedContent = prompt.content
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+                    
+                    promptsHTML += `
+                        <div class="free-card" data-prompt="${escapedContent}">
+                            <div class="free-card-title">${prompt.title}</div>
+                            <div class="free-card-tag">owner: ${prompt.owner}</div>
+                            <div class="free-card-tag" style="font-size: 0.7rem;">ditambahkan: ${prompt.dateAdded}</div>
+                            <ul class="free-features">
+                                <li>${prompt.support}</li>
+                            </ul>
+                            <button class="delete-btn" data-index="${index}">🗑️ Hapus</button>
+                        </div>
+                    `;
+                });
+                
+                promptsHTML += '</div>';
+                container.innerHTML = promptsHTML;
+                
+                // Tambahkan event listener untuk tombol hapus
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        deletePrompt(index);
+                    });
+                });
+                
+            } catch (error) {
+                console.error('Error loading prompts:', error);
+            }
+        }
+
+        // Fungsi untuk menghapus prompt dari localStorage
+        function deletePrompt(index) {
+            try {
+                const savedPrompts = localStorage.getItem('userPrompts');
+                if (!savedPrompts) return;
+                
+                let promptsArray = JSON.parse(savedPrompts);
+                
+                if (index >= 0 && index < promptsArray.length) {
+                    // Hapus prompt berdasarkan index
+                    promptsArray.splice(index, 1);
+                    
+                    // Simpan kembali ke localStorage
+                    localStorage.setItem('userPrompts', JSON.stringify(promptsArray));
+                    
+                    // Muat ulang daftar prompt
+                    loadAllSavedPrompts();
+                    
+                    showNotification('✅ Prompt berhasil dihapus!');
+                    
+                    // Tampilkan pesan jika tidak ada prompt lagi
+                    if (promptsArray.length === 0) {
+                        document.getElementById('savedPromptsContainer').innerHTML = '<p class="preview-card">Belum ada prompt yang disimpan.</p>';
+                    }
+                }
+            } catch (error) {
+                console.error('Error deleting prompt:', error);
+                showNotification('❌ Gagal menghapus prompt!');
+            }
+        }
+
+        // Fungsi untuk menghapus semua prompt
+        function clearAllPrompts() {
+            if (confirm('Apakah Anda yakin ingin menghapus SEMUA prompt yang sudah ditambahkan?')) {
+                localStorage.removeItem('userPrompts');
+                loadAllSavedPrompts();
+                showNotification('✅ Semua prompt berhasil dihapus!');
+            }
+        }
+
+        // ==================== EVENT LISTENER ====================
+
+        // Event listener untuk form
+        document.getElementById('promptForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Ambil data dari form
+            const promptData = {
+                id: Date.now(), // ID unik berdasarkan timestamp
+                title: document.getElementById('promptTitle').value,
+                owner: document.getElementById('promptOwner').value,
+                support: document.getElementById('promptSupport').value,
+                content: document.getElementById('promptContent').value,
+                dateAdded: new Date().toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+            };
+            
+            // Validasi
+            if (!promptData.title || !promptData.owner || !promptData.support || !promptData.content) {
+                showNotification('❌ Harap isi semua field!');
+                return;
+            }
+            
+            // Simpan ke localStorage
+            const saveResult = savePromptToLocalStorage(promptData);
+            
+            if (saveResult) {
+                showNotification('✅ Prompt berhasil disimpan!');
+                
+                // Reset form
+                document.getElementById('promptForm').reset();
+                
+                // Update preview
+                updatePreview();
+                
+                // Muat ulang daftar prompt yang disimpan
+                loadAllSavedPrompts();
+                
+                // Tampilkan konfirmasi untuk kembali ke halaman utama
+                setTimeout(() => {
+                    if (confirm('Prompt berhasil disimpan! Apakah Anda ingin kembali ke halaman utama untuk melihat prompt yang ditambahkan?')) {
+                        window.location.href = 'index.html';
+                    }
+                }, 1000);
+            } else {
+                showNotification('❌ Gagal menyimpan prompt. Coba lagi!');
+            }
+        });
+
+        // Event listener untuk update real-time preview
+        document.getElementById('promptTitle').addEventListener('input', updatePreview);
+        document.getElementById('promptOwner').addEventListener('input', updatePreview);
+document.getElementById('promptSupport').addEventListener('input', updatePreview);
+        document.getElementById('promptContent').addEventListener('input', updatePreview);
+
+        // Event listener untuk tombol hapus semua
+        document.getElementById('clearAllBtn').addEventListener('click', clearAllPrompts);
+
+        // ==================== INISIALISASI ====================
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update preview awal
+            updatePreview();
+            
+            // Muat semua prompt yang sudah disimpan
+            loadAllSavedPrompts();
+            
+            // Tambahkan info tentang localStorage
+            console.log('Panel Admin Prompt - Diki');
+            console.log('LocalStorage key: userPrompts');
+            
+            // Cek apakah localStorage tersedia
+            if (typeof(Storage) === "undefined") {
+                alert('Browser Anda tidak mendukung localStorage! Prompt tidak akan bisa disimpan.');
+            }
+        });
+    </script>
+</body>
+</html>
